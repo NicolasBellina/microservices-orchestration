@@ -1,55 +1,33 @@
-# Microservices Orchestration
+# Installation
 
-Ce dépôt contient la configuration Docker Compose pour orchestrer nos microservices.
-
-## Services
-- auth-app : Service d'authentification (JWT)
-- api-app : Service métier
-- db : Base de données MySQL
-
-## Configuration
-
-1. Copier le fichier `.env.example` pour créer vos fichiers d'environnement :
+1. Cloner ce repo :
 ```bash
-cp .env.example env/dev.env
-cp .env.example env/prod.env
+git clone [URL_DE_VOTRE_REPO] microservices-orchestration
+cd microservices-orchestration
 ```
 
-2. Modifier les variables dans chaque fichier d'environnement selon vos besoins.
+2. Cloner les services associés :
+```bash
+git clone [URL_DU_REPO_AUTH_APP] auth-app
+git clone [URL_DU_REPO_API_APP] api-app
+```
 
-## Utilisation
+3. Configurer les environnements :
+```bash
+cp env/dev.env.example env/dev.env
+cp env/prod.env.example env/prod.env
+```
 
-### Environnement de développement :
+4. Démarrer les services :
 ```bash
 ENV=dev docker-compose up --build
 ```
-
-### Environnement de production :
-```bash
-ENV=prod docker-compose up --build
-```
 ```
 
-6. **Coordination avec l'équipe** :
-- Assurez-vous que les ports et les variables d'environnement correspondent à ceux utilisés dans les services `auth-app` et `api-app`
-- Communiquez avec vos collègues pour synchroniser les configurations
-- Testez l'orchestration une fois que les autres services sont prêts
+Cette organisation vous permettra de :
+- Tester l'intégration complète localement
+- Vérifier que les services communiquent correctement
+- S'assurer que les variables d'environnement sont bien configurées
+- Faciliter le développement et le débogage
 
-7. **Pour le bonus Vault** (si implémenté) :
-Ajouter le service Vault dans le `docker-compose.yml` :
-
-```yaml:docker-compose.yml
-  vault:
-    image: vault:latest
-    ports:
-      - "8200:8200"
-    environment:
-      VAULT_DEV_ROOT_TOKEN_ID: root
-      VAULT_DEV_LISTEN_ADDRESS: 0.0.0.0:8200
-    cap_add:
-      - IPC_LOCK
-    networks:
-      - app-network
-```
-
-Votre rôle est crucial car vous devez vous assurer que tous les services peuvent communiquer entre eux correctement et que les variables d'environnement sont correctement gérées pour chaque environnement.# microservices-orchestration
+N'oubliez pas de demander à vos collègues les URLs de leurs repos pour pouvoir les cloner !

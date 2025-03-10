@@ -1,13 +1,21 @@
 # Environment variables
-/env/*.env
 .env
+env/*.env
+!env/*.env.example
 
-# Logs
-*.log
+# Ignore service directories
+/auth-app
+/api-app
 
 # Dependencies
 node_modules/
 
+# Logs
+*.log
+
 # Build outputs
 dist/
-build/ 
+build/
+
+# Database
+data/ 
