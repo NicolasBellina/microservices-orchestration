@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  auth-app:
+    build: 
+      context: ./auth-app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    env_file:
+      - ./env/${ENV}.env
+    networks:
+      - app-network
+
+  api-app:
+    build:
+      context: ./api-app
+    ports:
+      - "3001:3001"
+    depends_on:
+      - db
+      - auth-app
+    env_file:
+      - ./env/${ENV}.env
+    networks:
+      - app-network
+
+  db:
+    image: mysql:8
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - app-network
+
+  vault:
+    image: vault:latest
+    ports:
+      - "8200:8200"
+    environment:
+      VAULT_DEV_ROOT_TOKEN_ID: root
+      VAULT_DEV_LISTEN_ADDRESS: 0.0.0.0:8200
+    cap_add:
+      - IPC_LOCK
+    networks:
+      - app-network
+
+volumes:
+  db-data:
+
+networks:
+  app-network:
+    driver: bridge
