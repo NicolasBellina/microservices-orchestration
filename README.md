@@ -35,5 +35,3 @@ Cette organisation vous permettra de :
 - Vérifier que les services communiquent correctement
 - S'assurer que les variables d'environnement sont bien configurées
 - Faciliter le développement et le débogage
-
-N'oubliez pas de demander à vos collègues les URLs de leurs repos pour pouvoir les cloner !
