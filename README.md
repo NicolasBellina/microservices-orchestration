@@ -1,3 +1,7 @@
+https://github.com/TomMbn/api-app
+https://github.com/sziane-pro/auth-app
+
+
 # Microservices Orchestration
 
 Ce dépôt contient la configuration Docker Compose pour orchestrer nos microservices.
