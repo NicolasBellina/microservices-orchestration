@@ -5,11 +5,16 @@ services:
     build: 
       context: ./auth-app
     ports:
-      - "3000:3000"
+      - "${AUTH_PORT}:${AUTH_PORT}"
+    environment:
+      - PORT=${AUTH_PORT}
+      - JWT_SECRET=${JWT_SECRET}
+      - DB_HOST=${AUTH_DB_HOST}
+      - DB_USER=${AUTH_DB_USER}
+      - DB_PASSWORD=${AUTH_DB_PASSWORD}
+      - DB_NAME=${AUTH_DB_NAME}
     depends_on:
       - db
-    env_file:
-      - ./env/${ENV}.env
     networks:
       - app-network
 
@@ -17,12 +22,17 @@ services:
     build:
       context: ./api-app
     ports:
-      - "3001:3001"
+      - "${API_PORT}:${API_PORT}"
+    environment:
+      - PORT=${API_PORT}
+      - DB_HOST=${API_DB_HOST}
+      - DB_USER=${API_DB_USER}
+      - DB_PASSWORD=${API_DB_PASSWORD}
+      - DB_NAME=${API_DB_NAME}
+      - JWT_SECRET=${JWT_SECRET}
     depends_on:
       - db
       - auth-app
-    env_file:
-      - ./env/${ENV}.env
     networks:
       - app-network
 
@@ -37,6 +47,7 @@ services:
       MYSQL_PASSWORD: ${DB_PASSWORD}
     volumes:
       - db-data:/var/lib/mysql
+      - ./sql:/docker-entrypoint-initdb.d
     networks:
       - app-network
 

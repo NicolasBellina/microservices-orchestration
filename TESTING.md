@@ -21,7 +21,7 @@ docker-compose logs api-app
 docker-compose logs db
 docker-compose logs vault
 ```
-
+  
 ## 2. Tests de la Base de Données
 
 ### 2.1 Connexion à MySQL
@@ -29,9 +29,9 @@ docker-compose logs vault
 # Se connecter à la base de données
 docker-compose exec db mysql -u root -p${DB_ROOT_PASSWORD}
 
-# Vérifier la base de données
+# Vérifier les tables
 SHOW DATABASES;
-USE ${DB_NAME};
+USE dev_db;
 SHOW TABLES;
 ```
 
@@ -75,3 +75,40 @@ curl -X POST http://localhost:3000/auth/login \
 curl http://localhost:3001/health
 
 # Test avec un token JWT (remplacer ${TOKEN} par un token valide)
+```
+
+# Arrêter les services
+docker-compose down
+
+# Démarrer en mode production
+ENV=prod docker-compose up --build
+```
+
+# Créer et utiliser les branches appropriées
+git checkout -b develop
+# Pour chaque nouvelle fonctionnalité
+git checkout -b feature/nom-de-la-fonctionnalite
+```
+
+name: Docker Build
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Build Docker Compose
+        run: docker-compose build
+      
+      - name: Test Docker Compose
+        run: |
+          ENV=dev docker-compose up -d
+          docker-compose ps
+          docker-compose logs
