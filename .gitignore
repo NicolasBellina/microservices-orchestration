@@ -3,10 +3,6 @@
 env/*.env
 !env/*.env.example
 
-# Ignore service directories
-/auth-app
-/api-app
-
 # Dependencies
 node_modules/
 

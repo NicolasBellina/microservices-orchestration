@@ -21,7 +21,7 @@ docker-compose logs api-app
 docker-compose logs db
 docker-compose logs vault
 ```
-
+  
 ## 2. Tests de la Base de Données
 
 ### 2.1 Connexion à MySQL
