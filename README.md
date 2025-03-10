@@ -8,14 +8,14 @@ https://github.com/sziane-pro/auth-app
 
 1. Cloner ce repo :
 ```bash
-git clone [URL_DE_VOTRE_REPO] microservices-orchestration
+git clone https://github.com/NicolasBellina/microservices-orchestration microservices-orchestration
 cd microservices-orchestration
 ```
 
 2. Cloner les services associés :
 ```bash
-git clone [URL_DU_REPO_AUTH_APP] auth-app
-git clone [URL_DU_REPO_API_APP] api-app
+git clone https://github.com/sziane-pro/auth-app auth-app
+git clone https://github.com/TomMbn/api-app api-app
 ```
 
 3. Configurer les environnements :
